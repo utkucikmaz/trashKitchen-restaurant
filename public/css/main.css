@@ -29,3 +29,6 @@ nav a {
     max-height: 350px;
     width: auto;
 }
+.product-details img {
+    max-width: 80%;
+}

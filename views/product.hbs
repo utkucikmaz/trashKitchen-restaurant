@@ -1,3 +1,20 @@
-<h1>{{title}}</h1>
+<section class="product-details">
 
+<h1>{{title}}</h1>
+<h2>Recommended Drink with this Pizza: {{recommendedDrink}}</h2>
+
+{{#if price}}
 <h2>Price: {{price}} $</h2>
+{{else}}
+<h2>Price upon request</h2>
+{{/if}}
+
+	<ul>
+		{{#each ingredients}}
+		<li>{{this.ingredientName}} ({{this.calories }}kcal.) </li>
+		{{/each}}
+	</ul>
+
+<img src="/images/{{ imageFile }}" alt="{{ title }} Image">
+
+</section>
