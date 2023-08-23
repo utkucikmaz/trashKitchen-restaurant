@@ -1,0 +1,14 @@
+app.get("/beers", (req, res, next) => {
+
+    punkAPI.getBeers()
+        .then((beersArr) => {
+            // Inside this block, beersArr is defined.
+            const data = {
+                listOfBeers: beersArr
+            }
+            res.render("myview", data);
+        })
+        .catch(e => {
+            console.log(e)
+        })
+})

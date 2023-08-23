@@ -1,0 +1,12 @@
+HBS - How to use partials:
+Configure:
+    const hbs = require("hbs");
+
+    // ...
+
+    hbs.registerPartials(__dirname + "/views/partials"); //tell HBS which directory we use for partials
+    
+2. create a file for your partial (ex. /partials/myPartial.hbs)
+note:  use `camelCase.hbs` for names of partials (`kebab-case.hbs` will not work)
+
+3. To render a partial:  {{> myPartial}} (edited) 

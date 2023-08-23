@@ -1,0 +1,10 @@
+## Handlebars Summary:
+Reuse code for all pages (ex. navigation menu, footer...)  → Layout
+`layout.hbs`
+
+Reuse code for pages of the same type (ex. product pages, course pages)  → Views
+`res.render(path, data);`
+`res.render("product", data);`  // product.hbs
+`res.render("subdirectory/my-view", data);`  // /subdirectory/my-view.hbs
+
+Reuse code inside your views  → Partials
