@@ -33,6 +33,9 @@ const pizzaSchema = new Schema({
         type: String,
         enum: ["Small", "Medium", "Large"],
     },
+    chef: {
+        type: String,
+    },
 });
 
 //create Model

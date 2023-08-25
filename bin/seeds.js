@@ -17,23 +17,28 @@ mongoose
                 price: 12,
                 ingredients: ["mozzarella", "tomato sauce", "basilicum"],
                 imageFile: "pizza-margarita.jpg",
+                chef: "Queen Margareth",
             },
             {
                 title: "veggie",
                 price: 15,
                 ingredients: ["tomato", "cucumber", "olives"],
                 imageFile: "pizza-veggie.jpg",
+                isVeggie: true,
+                chef: "Gordon Ramsey",
             },
             {
                 title: "seafood",
                 price: 20,
                 ingredients: ["mozzarella", "tomato", "prawn"],
                 imageFile: "pizza-seafood.jpg",
+                chef: "Gordon Ramsey",
             },
             {
                 title: "hawaiian",
                 price: 17,
                 ingredients: ["mozzarella", "pineapple", "patience..."],
+                chef: "Died",
             },
         ];
 

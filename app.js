@@ -53,52 +53,36 @@ app.get("/pizzas/margarita", (req, res, next) => {
 });
 //veggie
 app.get("/pizzas/veggie", (req, res, next) => {
-    const dataVeggie = {
-        title: "Veggie Pizza",
-        price: 15,
-        recommendedDrink: "Power smoothie",
-        imageFile: "pizza-veggie.jpg",
-        ingredients: [
-            {
-                ingredientName: "cherry tomatoes",
-                calories: 80,
-            },
-            {
-                ingredientName: "basilicum",
-                calories: 30,
-            },
-            {
-                ingredientName: "olives",
-                calories: 300,
-            },
-        ],
-    };
-    res.render("product", dataVeggie);
+    Pizza.findOne({ title: "veggie" })
+        .then((dataVeggie) => {
+            res.render("product", dataVeggie);
+            console.log(dataVeggie);
+        })
+        .catch((err) => {
+            console.error("Error... ", err);
+        });
 });
 //seafood
 app.get("/pizzas/seafood", (req, res, next) => {
-    const dataSeafood = {
-        title: "Seafood Pizza",
-        price: 20,
-        recommendedDrink: "White wine",
-        imageFile: "pizza-seafood.jpg",
-        ingredients: ["tomato sauce", "garlic", "prawn"],
-        ingredients: [
-            {
-                ingredientName: "tomato sauce",
-                calories: 200,
-            },
-            {
-                ingredientName: "garlic",
-                calories: 20,
-            },
-            {
-                ingredientName: "prawn",
-                calories: 350,
-            },
-        ],
-    };
-    res.render("product", dataSeafood);
+    Pizza.findOne({ title: "seafood" })
+        .then((dataSeafood) => {
+            res.render("product", dataSeafood);
+            console.log(dataSeafood);
+        })
+        .catch((err) => {
+            console.error("Error... ", err);
+        });
+});
+//hawai
+app.get("/pizzas/hawaiian", (req, res, next) => {
+    Pizza.findOne({ title: "hawaiian" })
+        .then((dataHawaiian) => {
+            res.render("product", dataHawaiian);
+            console.log(dataHawaiian);
+        })
+        .catch((err) => {
+            console.error("Error... ", err);
+        });
 });
 
 app.listen(3000, () => console.log("My first app listening on port 3000! "));

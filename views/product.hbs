@@ -8,13 +8,25 @@
 <h2>Price upon request</h2>
 {{/if}}
 
-	<ul>
-		{{#each ingredients}}
-		<li>{{this.ingredientName}} </li>
-		{{/each}}
-	</ul>
+{{#if chef}}
+<h3>Artist chef is {{chef}}</h3>
+{{/if}}
 
+{{#if isVeggie}}
+<h3>This Pizza is Vegan</h3>
+{{/if}}
+
+{{#if ingredients}}
+<ul class="ingredients-list">
+	{{#each ingredients}}
+	<li>{{this}}</li>
+	{{/each}}
+</ul>
+{{/if}}
+
+{{#if imageFile}}
 <img src="/images/{{ imageFile }}" alt="{{ title }} Image">
+{{/if}}
 
 {{> ctaOrderNow}}
 
