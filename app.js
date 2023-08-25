@@ -4,12 +4,15 @@ const hbs = require("hbs");
 const { mongoose, Schema } = require("mongoose");
 const Pizza = require("./models/Pizza.model");
 const Drink = require("./models/Drink.model");
+const bodyParser = require("body-parser");
+
+app.set("views", __dirname + "/views"); //tells our Express app where to look for our views
+app.set("view engine", "hbs"); //sets HBS as the template engine
 
 hbs.registerPartials(__dirname + "/views/partials"); //tell HBS which directory we use for partials
 app.use(express.static("public"));
 
-app.set("views", __dirname + "/views"); //tells our Express app where to look for our views
-app.set("view engine", "hbs"); //sets HBS as the template engine
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // Connect to DB
 mongoose
@@ -32,14 +35,19 @@ app.get("/contact", (req, res, next) => {
 });
 
 app.get("/pizzas", (req, res, next) => {
-    Pizza.find()
-        .then((resultList) => {
-            console.log(resultList);
-            res.render("product-list", resultList);
+    let maxPrice = req.query.maxPrice;
+    maxPrice = Number(maxPrice); //convert to a number
+
+    let filter = {};
+    if (maxPrice) {
+        filter = { price: { $lte: maxPrice } };
+    }
+
+    Pizza.find(filter)
+        .then((pizzasArr) => {
+            res.render("product-list", pizzasArr);
         })
-        .catch((err) => {
-            console.error("Error... ", err);
-        });
+        .catch((e) => console.log("Error getting list of pizzas from DB", e));
 });
 
 app.get("/drinks", (req, res, next) => {
@@ -73,6 +81,15 @@ app.get(`/drinks/:drinkName`, (req, res, next) => {
         .catch((err) => {
             console.error("Error... ", err);
         });
+});
+
+app.post("/login", (req, res, next) => {
+    console.log(req.body);
+    if (req.body.pwd === "ilovepizza") {
+        res.send("welcome");
+    } else {
+        res.send("sorry, not allowed");
+    }
 });
 
 app.listen(3000, () => console.log("My first app listening on port 3000! "));
