@@ -21,15 +21,6 @@ mongoose
     })
     .catch((err) => console.error("Error... ", err));
 
-mongoose
-    .connect("mongodb://127.0.0.1:27017/", {
-        dbName: "pizza-restaurant",
-    })
-    .then((x) => {
-        console.log(`Connected! Database name: "${x.connections[0].name}"`);
-    })
-    .catch((err) => console.error("Error... ", err));
-
 // Home Page
 app.get("/", (req, res, next) => {
     res.render("homepage");
@@ -68,6 +59,16 @@ app.get(`/pizzas/:pizzaName`, (req, res, next) => {
     Pizza.findOne({ title: `${req.params.pizzaName}` })
         .then((dataPizza) => {
             res.render("product", dataPizza);
+        })
+        .catch((err) => {
+            console.error("Error... ", err);
+        });
+});
+
+app.get(`/drinks/:drinkName`, (req, res, next) => {
+    Drink.findOne({ title: `${req.params.drinkName}` })
+        .then((dataDrink) => {
+            res.render("product", dataDrink);
         })
         .catch((err) => {
             console.error("Error... ", err);

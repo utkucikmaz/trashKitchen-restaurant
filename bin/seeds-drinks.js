@@ -13,7 +13,7 @@ mongoose
 
         const newDrinksArr = [
             {
-                title: "Coca-Cola",
+                title: "Coke",
                 price: 2.5,
                 imageFile: "coke.png",
             },
