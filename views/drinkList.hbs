@@ -1,0 +1,22 @@
+<h1>The List of Drinks We Have</h1>
+
+{{#each this}}
+<a href="/pizzas/{{title}}">
+	<h2>{{title}}</h2>
+	{{#if price}}
+	<h3>Price: {{price}} $</h3>
+	{{/if}}
+	{{#if ingredients}}
+	<ul class="ingredients-list">
+		{{#each ingredients}}
+		<li>{{this}}</li>
+		{{/each}}
+	</ul>
+	{{/if}}
+	{{#if imageFile}}
+	<img class="drinkImage" src="/images/{{imageFile}}" alt="{{title}} Image">
+	{{/if}}
+</a>
+{{/each}}
+
+{{> ctaOrderNow}}

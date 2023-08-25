@@ -3,6 +3,7 @@ const app = express();
 const hbs = require("hbs");
 const { mongoose, Schema } = require("mongoose");
 const Pizza = require("./models/Pizza.model");
+const Drink = require("./models/Drink.model");
 
 hbs.registerPartials(__dirname + "/views/partials"); //tell HBS which directory we use for partials
 app.use(express.static("public"));
@@ -12,7 +13,18 @@ app.set("view engine", "hbs"); //sets HBS as the template engine
 
 // Connect to DB
 mongoose
-    .connect("mongodb://127.0.0.1:27017/pizza-restaurant")
+    .connect("mongodb://127.0.0.1:27017/", {
+        dbName: "pizza-restaurant",
+    })
+    .then((x) => {
+        console.log(`Connected! Database name: "${x.connections[0].name}"`);
+    })
+    .catch((err) => console.error("Error... ", err));
+
+mongoose
+    .connect("mongodb://127.0.0.1:27017/", {
+        dbName: "pizza-restaurant",
+    })
     .then((x) => {
         console.log(`Connected! Database name: "${x.connections[0].name}"`);
     })
@@ -39,46 +51,23 @@ app.get("/pizza-list", (req, res, next) => {
         });
 });
 
+app.get("/drink-list", (req, res, next) => {
+    Drink.find()
+        .then((resultList) => {
+            console.log(resultList);
+            res.render("drinkList", resultList);
+        })
+        .catch((err) => {
+            console.error("Error... ", err);
+        });
+});
+
 //Pizzas
-//Margarita
-app.get("/pizzas/margarita", (req, res, next) => {
-    Pizza.findOne({ title: "margarita" })
-        .then((dataMargarita) => {
-            res.render("product", dataMargarita);
-            console.log(dataMargarita);
-        })
-        .catch((err) => {
-            console.error("Error... ", err);
-        });
-});
-//veggie
-app.get("/pizzas/veggie", (req, res, next) => {
-    Pizza.findOne({ title: "veggie" })
-        .then((dataVeggie) => {
-            res.render("product", dataVeggie);
-            console.log(dataVeggie);
-        })
-        .catch((err) => {
-            console.error("Error... ", err);
-        });
-});
-//seafood
-app.get("/pizzas/seafood", (req, res, next) => {
-    Pizza.findOne({ title: "seafood" })
-        .then((dataSeafood) => {
-            res.render("product", dataSeafood);
-            console.log(dataSeafood);
-        })
-        .catch((err) => {
-            console.error("Error... ", err);
-        });
-});
-//hawai
-app.get("/pizzas/hawaiian", (req, res, next) => {
-    Pizza.findOne({ title: "hawaiian" })
-        .then((dataHawaiian) => {
-            res.render("product", dataHawaiian);
-            console.log(dataHawaiian);
+//Generic Pizza URL and data
+app.get(`/pizzas/:pizzaName`, (req, res, next) => {
+    Pizza.findOne({ title: `${req.params.pizzaName}` })
+        .then((dataPizza) => {
+            res.render("product", dataPizza);
         })
         .catch((err) => {
             console.error("Error... ", err);
