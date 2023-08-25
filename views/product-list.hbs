@@ -1,7 +1,7 @@
-<h1>The List of Pizzas We Have</h1>
+<h1>Menu</h1>
 
 {{#each this}}
-	<a href="/pizzas/{{title}}">
+	<a href="/{{dbcoll}}/{{title}}">
 	<h2>{{title}}</h2>
 {{#if price}}
 <h3>Price: {{price}} $</h3>

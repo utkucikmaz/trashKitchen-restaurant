@@ -31,22 +31,22 @@ app.get("/contact", (req, res, next) => {
     res.render("contact");
 });
 
-app.get("/pizza-list", (req, res, next) => {
+app.get("/pizzas", (req, res, next) => {
     Pizza.find()
         .then((resultList) => {
             console.log(resultList);
-            res.render("pizzaList", resultList);
+            res.render("product-list", resultList);
         })
         .catch((err) => {
             console.error("Error... ", err);
         });
 });
 
-app.get("/drink-list", (req, res, next) => {
+app.get("/drinks", (req, res, next) => {
     Drink.find()
         .then((resultList) => {
             console.log(resultList);
-            res.render("drinkList", resultList);
+            res.render("product-list", resultList);
         })
         .catch((err) => {
             console.error("Error... ", err);

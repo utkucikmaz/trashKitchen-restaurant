@@ -36,6 +36,10 @@ const pizzaSchema = new Schema({
     chef: {
         type: String,
     },
+    dbcoll: {
+        type: String,
+        default: "pizzas",
+    },
 });
 
 //create Model

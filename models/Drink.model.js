@@ -15,6 +15,10 @@ const drinkSchema = new Schema({
         type: String,
         enum: ["Small", "Medium", "Large"],
     },
+    dbcoll: {
+        type: String,
+        default: "drinks",
+    },
 });
 
 const Drink = mongoose.model("Drink", drinkSchema);
