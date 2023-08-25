@@ -24,7 +24,7 @@ const pizzaSchema = new Schema({
         enum: ["classic", "extra thin", "with cheese", "with garlic"], //allows only these strings
     },
     ingredients: {
-        type: Array, //or [String]
+        type: [String], //or Array
     },
     imageFile: {
         type: String,

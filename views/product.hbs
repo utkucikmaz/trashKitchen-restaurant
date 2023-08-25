@@ -1,7 +1,6 @@
 <section class="product-details">
 
 <h1>{{title}}</h1>
-<h2>Recommended Drink with this Pizza: {{recommendedDrink}}</h2>
 
 {{#if price}}
 <h2>Price: {{price}} $</h2>
@@ -11,7 +10,7 @@
 
 	<ul>
 		{{#each ingredients}}
-		<li>{{this.ingredientName}} ({{this.calories }}kcal.) </li>
+		<li>{{this.ingredientName}} </li>
 		{{/each}}
 	</ul>
 

@@ -1,6 +1,8 @@
 const express = require("express");
 const app = express();
 const hbs = require("hbs");
+const { mongoose, Schema } = require("mongoose");
+const Pizza = require("./models/Pizza.model");
 
 hbs.registerPartials(__dirname + "/views/partials"); //tell HBS which directory we use for partials
 app.use(express.static("public"));
@@ -8,7 +10,13 @@ app.use(express.static("public"));
 app.set("views", __dirname + "/views"); //tells our Express app where to look for our views
 app.set("view engine", "hbs"); //sets HBS as the template engine
 
-// app.get(path, code)
+// Connect to DB
+mongoose
+    .connect("mongodb://127.0.0.1:27017/pizza-restaurant")
+    .then((x) => {
+        console.log(`Connected! Database name: "${x.connections[0].name}"`);
+    })
+    .catch((err) => console.error("Error... ", err));
 
 // Home Page
 app.get("/", (req, res, next) => {
@@ -20,32 +28,28 @@ app.get("/contact", (req, res, next) => {
     res.render("contact");
 });
 
+app.get("/pizza-list", (req, res, next) => {
+    Pizza.find()
+        .then((resultList) => {
+            console.log(resultList);
+            res.render("pizzaList", resultList);
+        })
+        .catch((err) => {
+            console.error("Error... ", err);
+        });
+});
+
 //Pizzas
 //Margarita
 app.get("/pizzas/margarita", (req, res, next) => {
-    //res.render(path, data)
-
-    const dataMargarita = {
-        title: "Margarita Pizza",
-        price: 12,
-        recommendedDrink: "Beer",
-        imageFile: "pizza-margarita.jpg",
-        ingredients: [
-            {
-                ingredientName: "mozzarella",
-                calories: 400,
-            },
-            {
-                ingredientName: "tomato sauce",
-                calories: 200,
-            },
-            {
-                ingredientName: "basilicum",
-                calories: 30,
-            },
-        ],
-    };
-    res.render("product", dataMargarita);
+    Pizza.findOne({ title: "margarita" })
+        .then((dataMargarita) => {
+            res.render("product", dataMargarita);
+            console.log(dataMargarita);
+        })
+        .catch((err) => {
+            console.error("Error... ", err);
+        });
 });
 //veggie
 app.get("/pizzas/veggie", (req, res, next) => {
